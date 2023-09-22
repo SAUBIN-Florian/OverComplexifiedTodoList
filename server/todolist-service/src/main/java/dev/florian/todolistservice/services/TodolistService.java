@@ -3,9 +3,9 @@ package dev.florian.todolistservice.services;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.florian.todolistservice.dtos.TodolistDto;
 import dev.florian.todolistservice.models.Todolist;
 import dev.florian.todolistservice.repositories.TodolistRepository;
 
@@ -14,7 +14,6 @@ public class TodolistService {
     
     private TodolistRepository listRepository;
 
-    @Autowired
     public TodolistService(TodolistRepository repository) {
         this.listRepository = repository;
     }
@@ -33,15 +32,16 @@ public class TodolistService {
         }
     }
 
-    public void save(Todolist todolist) {
+    public void save(TodolistDto todolistDto) {
+        Todolist todolist = Todolist.builder().title(todolistDto.getTitle()).build();
         this.listRepository.save(todolist);
     }
 
-    public void update(UUID id, Todolist todolist) {
+    public void update(UUID id, TodolistDto todolistDto) {
         Todolist updateTodolist = this.listRepository.findById(id).orElse(null);
 
         if(updateTodolist != null) {
-            if(todolist.getTitle() != null) updateTodolist.setTitle(todolist.getTitle());
+            if(todolistDto.getTitle() != null) updateTodolist.setTitle(todolistDto.getTitle());
             
             this.listRepository.save(updateTodolist);
         } else {

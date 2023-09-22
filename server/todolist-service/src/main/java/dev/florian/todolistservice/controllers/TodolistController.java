@@ -3,7 +3,7 @@ package dev.florian.todolistservice.controllers;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,16 +13,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.florian.todolistservice.dtos.TodolistDto;
 import dev.florian.todolistservice.models.Todolist;
 import dev.florian.todolistservice.services.TodolistService;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/todolists")
 public class TodolistController {
     
     private TodolistService todolistService;
 
-    @Autowired
     public TodolistController(TodolistService todolistService) {
         this.todolistService = todolistService;
     }
@@ -38,13 +39,13 @@ public class TodolistController {
     }
 
     @PostMapping("")
-    public void saveTodolist(@RequestBody Todolist todolist) {
-        this.todolistService.save(todolist);
+    public void saveTodolist(@RequestBody TodolistDto todolistDto) {
+        this.todolistService.save(todolistDto);
     }
 
     @PutMapping("/{id}")
-    public void updateTodolist(@PathVariable UUID id, @RequestBody Todolist todolist) {
-        this.todolistService.update(id, todolist);
+    public void updateTodolist(@PathVariable UUID id, @RequestBody TodolistDto todolistDto) {
+        this.todolistService.update(id, todolistDto);
     }
 
     @DeleteMapping("/{id}")

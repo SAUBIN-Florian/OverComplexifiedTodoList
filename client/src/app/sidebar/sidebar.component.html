@@ -1,0 +1,10 @@
+<div id="sidebar">
+    <h1>OverComplexifiedTodolist</h1>
+    <a routerLink="/todolist/new">New List</a>
+    <h2>Todolists:</h2>
+    <ul class="sidebar-list">
+        <li *ngFor="let todolist of todolists">
+            <a [routerLink]="['/todolist', todolist.id]">{{todolist.title}}</a>
+        </li>
+    </ul>
+</div>

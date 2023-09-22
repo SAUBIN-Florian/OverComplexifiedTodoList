@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&family=Josefin+Sans:wght@300;400;500&family=Ubuntu:wght@300;400;500;700&display=swap');
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cabin', sans-serif;
+    color: var(--font-color);
+}
+
+:root {
+    --primary-color: #6A6B83;
+    --secondary-color: #E4E6C3;
+    --success-color: #c5d86d;
+    --error-color: #F05D23;
+    --font-color: #261C15;
+    --background-color: #F7F7F2;
+  }
