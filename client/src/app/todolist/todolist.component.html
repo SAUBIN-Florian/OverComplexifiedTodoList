@@ -1,13 +1,18 @@
 <div class="todolist">
     <div class="headers">
-        <!-- <h3>{{todolist.title}}</h3> -->
-        <span>Created At:</span>
+        <h1 class="title">{{todolist.title}}</h1>
+        <span class="sub-title">Created At:</span>
     </div>
     <div class="body">
+        <form [formGroup]="todoForm" (ngSubmit)="handleSubmit()">
+            <div class="form-group">
+                <label for="task">New task:</label>
+                <input type="text" formControlName="task" placeholder="Add a task...">
+            </div>
+            <input type="submit" value="Add Todo">
+        </form>
         <ul>
-           <!-- <app-todo *ngFor="let todo of todos">
-            
-           </app-todo> -->
+           <app-todo *ngFor="let todo of todos" [todo]="todo" [todolistId]="todolist.id"></app-todo>
         </ul>
     </div>
 </div>

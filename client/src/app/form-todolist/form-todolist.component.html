@@ -1,7 +1,14 @@
 <div>
     <form [formGroup]="formTodoList" (ngSubmit)="handleForm()" method="POST">
-        <label for="title">Title:</label>
-        <input type="text" formControlName="title" placeholder="Enter a title...">
-        <input type="submit" value="SUBMIT">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" formControlName="title" placeholder="Enter a title...">
+        </div>
+        <!-- TODO: Implement color-picker feature -->
+        <div class="form-group">
+            <label for="color">Color Picker:</label>
+            <input type="color" formControlName="color">
+        </div>
+        <input type="submit" value="Add List">
     </form>
 </div>

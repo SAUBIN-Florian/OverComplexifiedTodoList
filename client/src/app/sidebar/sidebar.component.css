@@ -1,5 +1,54 @@
 #sidebar {
     flex: 1;
-    height: 100vh;
+    height: calc(100vh - 20px);
+    /* width: 300px; */
+    margin: 10px;
+    padding: 0 6px;
+    border-radius: var(--radius-div);
     background-color: var(--background-color);
+}
+
+.title, .sub-title, .search {
+    padding: 8px 0;
+}
+
+.sub-title {
+    font-size: .80em;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header > button {
+    border: none;
+    border-radius: var(--radius-div);
+    background-color: transparent;
+}
+
+.header > button:hover {
+    background-color: var(--secondary-color);
+}
+
+.search > input {
+    width: 90%;
+    margin: 0 10px;
+    padding: 4px 8px;
+    background-color: transparent;
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--radius-div);
+}
+
+.sidebar-list {
+    list-style: none;
+}
+
+.sidebar-list li {
+    margin-left: 8px;
+    padding: 2px;
+}
+
+a {
+    text-decoration: none;
 }

@@ -4,8 +4,8 @@ import { TodolistComponent } from './todolist/todolist.component';
 import { FormTodolistComponent } from './form-todolist/form-todolist.component';
 
 const routes: Routes = [
-  // {path: "todolist/:id", component: TodolistComponent},
-  {path: "todolist/new", component: FormTodolistComponent}
+  {path: "todolist/new", component: FormTodolistComponent},
+  {path: "todolist/:id", component: TodolistComponent}
 ];
 
 @NgModule({

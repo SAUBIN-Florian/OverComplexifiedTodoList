@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Todolist } from '../interfaces/Todo';
+import { Todo, Todolist } from '../interfaces/Todo';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +21,17 @@ export class TodolistService {
     const request = this.http.get<Todolist>(this.TODOLIST_URI + "/" + id);
     return request;
   }
-
+  
   public saveTodolist(todolist: Todolist): Observable<boolean> {
     console.log(todolist);
     const request = this.http.post<any>(this.TODOLIST_URI, todolist);
-    this.updatedObservableTodolist.next();
-    return request;
+    
+    request.subscribe({
+      next: (data) => {this.updatedObservableTodolist.next()},
+      error: (err) => {console.log(err)}
+    });
+
+    return of(true);
   }
 
   public updateTodolist(id: String, todolist: Todolist): Observable<boolean> {
@@ -41,5 +46,16 @@ export class TodolistService {
 
   public getUpdateObservableList() {
     return this.updatedObservableTodolist.asObservable();
+  }
+
+  public saveTodo(todolistId: string, todo: Todo): Observable<boolean> {
+    const request = this.http.post<any>(this.TODOLIST_URI + "/" + todolistId + "/todos", todo);
+    return request;
+  }
+
+  public deleteTodo(todolistId: string, todoId: number): Observable<boolean> {
+    console.log("service todoListId: " + todolistId + ", todoId: " + todoId)
+    const request = this.http.delete<any>(this.TODOLIST_URI + "/" + todolistId + "/todos/" + todoId);
+    return request;
   }
 }

@@ -16,13 +16,14 @@ export class FormTodolistComponent {
 
   public ngOnInit() {
     this.formTodoList = this.fb.group({
-      title: this.fb.control(null)
+      title: this.fb.control(null),
+      color: this.fb.control(null),
     })
   }
 
   public handleForm() {
     this.todolistService.saveTodolist(this.formTodoList.value).subscribe({
-      next: (data) => {true},
+      next: (_) => {},
       error: (err) => {console.log(err)}
     });
     this.router.navigate(["/"]);

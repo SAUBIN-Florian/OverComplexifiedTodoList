@@ -3,7 +3,6 @@ package dev.florian.todolistservice.controllers;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +17,6 @@ import dev.florian.todolistservice.models.Todolist;
 import dev.florian.todolistservice.services.TodolistService;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/todolists")
 public class TodolistController {
     

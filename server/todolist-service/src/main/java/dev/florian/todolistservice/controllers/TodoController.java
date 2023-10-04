@@ -3,7 +3,6 @@ package dev.florian.todolistservice.controllers;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,8 +17,7 @@ import dev.florian.todolistservice.models.Todo;
 import dev.florian.todolistservice.services.TodoService;
 
 @RestController
-@CrossOrigin("*")
-@RequestMapping("/{todolistId}")
+@RequestMapping("todolists/{todolistId}/todos")
 public class TodoController {
     
     private TodoService todoService;
@@ -38,14 +36,14 @@ public class TodoController {
         this.todoService.save(todolistId, todo);
     }
 
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/{id}")
     public void updateTodo(@PathVariable(name="todolistId") UUID todolistId, @RequestBody TodoDto todo, @PathVariable Integer id) {
         this.todoService.update(todo, id);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteTodo(@PathVariable(name="todolistId") UUID todolistId, @PathVariable Integer id) {
-        this.todoService.delete(id);
+        this.todoService.delete(todolistId, id);
     }
     
 }

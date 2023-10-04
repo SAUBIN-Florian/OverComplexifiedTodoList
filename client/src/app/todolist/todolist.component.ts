@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Todolist } from '../interfaces/Todo';
+import { Todo, Todolist } from '../interfaces/Todo';
 import { TodolistService } from '../services/todolist-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-todolist',
@@ -10,17 +11,39 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TodolistComponent {
 
+  public id!: string | null;
   public todolist!: Todolist;
+  public todos: Todo[] = [];
+  public todoForm!: FormGroup;
 
-  public constructor(private todolistService: TodolistService, private activeRoute: ActivatedRoute) {}
+  public constructor(private todolistService: TodolistService, private fb: FormBuilder, private activeRoute: ActivatedRoute) {}
 
   public ngOnInit() {
-
-    // const id = this.activeRoute.snapshot.paramMap.get('id');
+    this.activeRoute.paramMap.subscribe((paramMap) => {
+      this.id = paramMap.get('id');
   
-    // id && this.todolistService.findOneTodolist(id).subscribe({
-    //   next: (data) => {this.todolist = data; console.log(data)},
-    //   error: (err) => {console.log(err)},
-    // })
+      if(this.id !== null) {
+        this.todolistService.findOneTodolist(this.id).subscribe({
+          next: (data) => {this.todolist = data; this.todos = data.todos},
+          error: (err) => {console.log(err)},
+        })
+      }
+    })
+
+    this.todoForm = this.fb.group({
+      task: this.fb.control(null),
+      done: this.fb.control(false)
+    })
+  }
+
+  public onClick() {}
+
+  public handleSubmit() {
+    if(this.id !== null) {
+      this.todolistService.saveTodo(this.id, this.todoForm.value).subscribe({
+        next: (data) => {console.log(data); this.todos.push(this.todoForm.value)},
+        error: (err) => {console.log(err)}
+      });
+    }
   }
 }

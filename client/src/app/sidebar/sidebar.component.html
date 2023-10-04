@@ -1,10 +1,24 @@
 <div id="sidebar">
-    <h1>OverComplexifiedTodolist</h1>
-    <a routerLink="/todolist/new">New List</a>
-    <h2>Todolists:</h2>
+    <div class="header">
+        <h2 class="title">Menu</h2>
+        <button>
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+    <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="search" placeholder="Search">
+    </div>
+    <h4 class="sub-title">LISTS</h4>
     <ul class="sidebar-list">
         <li *ngFor="let todolist of todolists">
             <a [routerLink]="['/todolist', todolist.id]">{{todolist.title}}</a>
+        </li>
+        <li>
+            <a routerLink="/todolist/new">
+                <i class="fa-solid fa-plus"></i>
+                Add New List
+            </a>
         </li>
     </ul>
 </div>

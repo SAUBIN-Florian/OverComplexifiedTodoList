@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import dev.florian.todolistservice.dtos.TodoDto;
 import dev.florian.todolistservice.models.Todo;
+import dev.florian.todolistservice.models.Todolist;
 import dev.florian.todolistservice.repositories.TodoRepository;
 
 @Service
@@ -25,7 +26,11 @@ public class TodoService {
     }
 
     public void save(UUID todolistId, TodoDto todo) {
-        Todo newTodo = new Todo(todo.getId(), todo.getTask(), todo.getDone(), this.todolistService.findById(todolistId));
+        Todo newTodo = Todo.builder()
+            .task(todo.getTask())
+            .done(false)
+            .todolist(this.todolistService.findById(todolistId))
+            .build();
         this.todoRepository.save(newTodo);
     }
 
@@ -40,7 +45,12 @@ public class TodoService {
         }
     }
 
-    public void delete(Integer id) {
-        this.todoRepository.deleteById(id);
+    public void delete(UUID todolistId, Integer id) {
+        Todolist actualTodolist = this.todolistService.findById(todolistId);
+        Todo todoToDelete = actualTodolist.getTodos().stream().filter(todo -> todo.getId().equals(id)).findFirst().orElse(null);
+
+        if(todoToDelete != null) {
+            this.todoRepository.deleteById(id);
+        }
     }
 }

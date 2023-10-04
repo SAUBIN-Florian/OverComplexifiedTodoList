@@ -1,6 +1,8 @@
 package dev.florian.todolistservice.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,5 +26,6 @@ public class Todo {
     private String task;
     private Boolean done;
     @ManyToOne
+    @JsonIgnore
     private Todolist todolist;
 }
