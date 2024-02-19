@@ -7,6 +7,10 @@ services:
         - "8761:8761"
       expose:
         - "8761"
+      healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761:actuator/health"]
+      interval: 5s
+      retries: 3
 
   config-service:
     build:
@@ -16,7 +20,14 @@ services:
     expose:
       - "8888"
     environment:
-      - DISCOVERY_SERVICE_URI="http://registry-service:8761/eureka"
+      - DISCOVERY_SERVICE_URI=http://registry-service:8761/eureka
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888:actuator/health"]
+      interval: 5s
+      retries: 3
+    depends_on:
+      registry-service:
+        condition: service_healthy
 
   # proxy-service:
   #   build:
@@ -37,7 +48,11 @@ services:
     expose:
       - "8001"
     environment:
-      - CONFIG_SERVICE_URI="http://config-service:8888"
+      - DISCOVERY_SERVICE_URI=http://registry-service:8761/eureka
+      - CONFIG_SERVICE_URI=http://config-service:8888
+    depends_on:
+      config-service:
+        condition: service_healthy
 
   # client:
   #   build:
