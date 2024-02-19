@@ -18,7 +18,7 @@ export class TodoComponent {
   
   handleDelete() {
     this.todolistService.deleteTodo(this.todolistId, this.todo.id).subscribe({
-      next: (data) => {console.log(data)},
+      next: (response) => {console.log(response)},
       error: (err) => {console.log(err)}
     })
   }

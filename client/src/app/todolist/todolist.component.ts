@@ -24,7 +24,7 @@ export class TodolistComponent {
   
       if(this.id !== null) {
         this.todolistService.findOneTodolist(this.id).subscribe({
-          next: (data) => {this.todolist = data; this.todos = data.todos},
+          next: (response) => {this.todolist = response.data.value; this.todos = response.data.value.todos},
           error: (err) => {console.log(err)},
         })
       }
@@ -41,7 +41,7 @@ export class TodolistComponent {
   public handleSubmit() {
     if(this.id !== null) {
       this.todolistService.saveTodo(this.id, this.todoForm.value).subscribe({
-        next: (data) => {console.log(data); this.todos.push(this.todoForm.value)},
+        next: (response) => {console.log(response); this.todos.push(this.todoForm.value)},
         error: (err) => {console.log(err)}
       });
     }

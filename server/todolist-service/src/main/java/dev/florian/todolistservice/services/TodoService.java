@@ -25,32 +25,40 @@ public class TodoService {
         return this.todoRepository.findAll();
     }
 
-    public void save(UUID todolistId, TodoDto todo) {
+    public Todo save(UUID todolistId, TodoDto todo) {
         Todo newTodo = Todo.builder()
             .task(todo.getTask())
             .done(false)
             .todolist(this.todolistService.findById(todolistId))
             .build();
         this.todoRepository.save(newTodo);
+
+        return newTodo;
     }
 
-    public void update(TodoDto todo, Integer id) {
+    public Todo update(TodoDto todo, Integer id) {
         if(this.todoRepository.existsById(id)) {
             Todo updateTodo = this.todoRepository.findById(id).get();
             updateTodo.setDone(todo.getDone());
 
             this.todoRepository.save(updateTodo);
+
+            return updateTodo;
         } else {
-            throw new IllegalArgumentException("Todo with UUID: " + id + "does not exist...");
+            throw new IllegalArgumentException("Todo with id: " + id + "does not exist...");
         }
     }
 
-    public void delete(UUID todolistId, Integer id) {
+    public Todo delete(UUID todolistId, Integer id) {
         Todolist actualTodolist = this.todolistService.findById(todolistId);
         Todo todoToDelete = actualTodolist.getTodos().stream().filter(todo -> todo.getId().equals(id)).findFirst().orElse(null);
 
         if(todoToDelete != null) {
             this.todoRepository.deleteById(id);
+
+            return todoToDelete;
+        } else {
+            throw new IllegalArgumentException("Todo with id: " + id + "does not exist...");
         }
     }
 }

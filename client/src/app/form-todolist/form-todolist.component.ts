@@ -22,10 +22,9 @@ export class FormTodolistComponent {
   }
 
   public handleForm() {
-    this.todolistService.saveTodolist(this.formTodoList.value).subscribe({
-      next: (_) => {},
-      error: (err) => {console.log(err)}
-    });
-    this.router.navigate(["/"]);
+    if(this.formTodoList.value.title) {
+      this.todolistService.saveTodolist(this.formTodoList.value);
+      this.router.navigate(["/"]);
+    }
   }
 }

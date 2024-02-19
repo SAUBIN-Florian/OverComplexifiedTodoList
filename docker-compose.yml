@@ -1,0 +1,42 @@
+version: '3'
+services:
+  registry-service:
+      build:
+        context: ./server/registry-service
+      ports:
+        - "8761:8761"
+      expose:
+        - "8761"
+
+  config-service:
+    build:
+      context: ./server/config-service
+    ports:
+      - "8888:8888"
+    expose:
+      - "8888"
+
+  # proxy-service:
+  #   build:
+  #     context: ./server/proxy-service
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - config-service
+  #     - registry-service
+
+  todolist-service:
+    build:
+      context: ./server/todolist-service
+    ports:
+      - "8001:8001"
+    expose:
+      - "8001"
+    # depends_on:
+    #   - proxy-service
+
+  # client:
+  #   build:
+  #     context: ./client
+  #   ports:
+  #     - "4200:4200"

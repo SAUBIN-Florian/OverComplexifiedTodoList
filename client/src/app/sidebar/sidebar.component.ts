@@ -23,7 +23,7 @@ export class SidebarComponent {
 
   public refreshEntries() {
     this.todolistService.findAllTodoLists().subscribe({
-      next: (data) => {this.todolists = data},
+      next: (response) => {this.todolists = response.data.value},
       error: (err) => {console.log(err)}
     });
   }

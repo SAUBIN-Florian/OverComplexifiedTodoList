@@ -28,6 +28,7 @@ public class Todolist {
     @GeneratedValue(strategy=GenerationType.UUID)
     private UUID id;
     private String title;
+    private String color;
     @OneToMany(mappedBy="todolist", fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
     @Builder.Default
     private List<Todo> todos = new ArrayList<>();

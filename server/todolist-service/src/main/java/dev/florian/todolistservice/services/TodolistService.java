@@ -19,6 +19,7 @@ public class TodolistService {
     }
 
     public List<Todolist> findAll() {
+        // TODO: Change Entities by Dtos
         return this.listRepository.findAll();
     }
 
@@ -33,7 +34,7 @@ public class TodolistService {
     }
 
     public void save(TodolistDto todolistDto) {
-        Todolist todolist = Todolist.builder().title(todolistDto.getTitle()).build();
+        Todolist todolist = Todolist.builder().title(todolistDto.getTitle()).color(todolistDto.getColor()).build();
         this.listRepository.save(todolist);
     }
 
@@ -42,6 +43,7 @@ public class TodolistService {
 
         if(updateTodolist != null) {
             if(todolistDto.getTitle() != null) updateTodolist.setTitle(todolistDto.getTitle());
+            if(todolistDto.getColor() != null) updateTodolist.setColor(todolistDto.getColor());
             
             this.listRepository.save(updateTodolist);
         } else {

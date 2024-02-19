@@ -1,6 +1,7 @@
 export interface Todolist {
     id: string;
     title: string;
+    color: string;
     todos: Todo[]
 }
 
