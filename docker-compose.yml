@@ -15,12 +15,16 @@ services:
       - "8888:8888"
     expose:
       - "8888"
+    environment:
+      - DISCOVERY_SERVICE_URI="http://registry-service:8761/eureka"
 
   # proxy-service:
   #   build:
   #     context: ./server/proxy-service
   #   ports:
   #     - "8000:8000"
+  #   expose:
+  #     - "8000"
   #   depends_on:
   #     - config-service
   #     - registry-service
@@ -32,8 +36,8 @@ services:
       - "8001:8001"
     expose:
       - "8001"
-    # depends_on:
-    #   - proxy-service
+    environment:
+      - CONFIG_SERVICE_URI="http://config-service:8888"
 
   # client:
   #   build:
