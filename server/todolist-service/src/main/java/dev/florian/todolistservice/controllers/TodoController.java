@@ -72,6 +72,7 @@ public class TodoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpResponse> deleteTodo(@PathVariable(name="todolistId") UUID todolistId, @PathVariable Integer id) {
+        this.todoService.delete(todolistId, id);
         HttpResponse response = HttpResponse.builder()
             .timestamp(new Date().toString())
             .statusCode(HttpStatus.OK.value())

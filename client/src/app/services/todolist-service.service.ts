@@ -56,6 +56,7 @@ export class TodolistService {
   public deleteTodo(todolistId: string, todoId: number): Observable<ResponseEntity> {
     console.log("service todoListId: " + todolistId + ", todoId: " + todoId)
     const request = this.http.delete<ResponseEntity>(this.TODOLIST_URI + "/" + todolistId + "/todos/" + todoId);
+    console.log(request);
     return request;
   }
 }

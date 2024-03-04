@@ -40,7 +40,7 @@ services:
       - DISCOVERY_SERVICE_URI=http://registration-service:8761/eureka
       - CONFIG_SERVICE_URI=http://config-service:8888
     depends_on:
-      registry-service:
+      registration-service:
         condition: service_healthy
       config-service:
         condition: service_healthy
@@ -64,3 +64,8 @@ services:
   #     context: ./client
   #   ports:
   #     - "4200:4200"
+  #   expose:
+  #     - "4200"
+  #   depends_on:
+  #     config-service:
+  #       condition: service_healthy
